@@ -6,7 +6,8 @@
   "scripts": {
     "producer": "ts-node src/producer.ts",
     "consumer": "ts-node src/consumer.ts",
-    "peek": "ts-node src/peek.ts"
+    "peek": "ts-node src/peek.ts",
+    "lag": "ts-node src/lag.ts"
   },
   "keywords": [],
   "author": "",

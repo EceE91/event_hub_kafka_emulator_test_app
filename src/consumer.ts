@@ -1,22 +1,21 @@
 import { Kafka } from "kafkajs";
-import { kafkaConfig, topic } from "./kafkaConfig";
+import { kafkaConfig, topic, consumerGroup } from "./kafkaConfig";
 
 async function run() {
   const kafka = new Kafka(kafkaConfig);
 
-  // DEBUG VIEWER GROUP
   const consumer = kafka.consumer({
-    groupId: "debug-viewer"
+    groupId: consumerGroup
   });
 
   await consumer.connect();
 
   await consumer.subscribe({
     topic,
-    fromBeginning: true // replay all messages
+    fromBeginning: true // replay all messages on first run
   });
 
-  console.log("Debug consumer listening...");
+  console.log(`Consumer listening (group: ${consumerGroup})...`);
 
   await consumer.run({
     eachMessage: async ({ partition, message }) => {

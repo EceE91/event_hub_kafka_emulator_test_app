@@ -96,6 +96,8 @@ Paste:
 }
 ```
 
+> ⚠️ **Important**: If you change `KAFKA_CONSUMER_GROUP` in `.env`, you must also add the new consumer group to `ConsumerGroups` array in the emulator config and restart the emulator.
+
 ---
 
 ## 🧑‍💻 Step 4: Setup Test Application
@@ -178,6 +180,48 @@ This will:
 
 ---
 
+## 📊 Step 7: Check Consumer Lag
+
+To see how many messages are **not yet consumed** by your consumer group:
+
+```bash
+npm run lag
+```
+
+This shows:
+- **Latest offset** - total messages produced to each partition
+- **Committed offset** - where your consumer group has read up to
+- **Lag** - number of unconsumed messages
+
+### 💡 Understanding Kafka Message Retention
+
+Unlike traditional message queues (RabbitMQ, SQS), **Kafka does NOT delete messages after consumption**:
+
+| Concept | Description |
+|---------|-------------|
+| **Message Persistence** | Messages stay in the topic until retention period expires (e.g., 7 days) |
+| **Consumer Offsets** | Each consumer group has a "bookmark" tracking what it has read |
+| **Peek vs Lag** | `peek` shows ALL messages; `lag` shows how many are unconsumed |
+
+This means:
+- `npm run peek` will **always show all messages** (within retention)
+- `npm run consumer` just moves your consumer group's offset forward
+- Running consumer again won't re-read old messages (offset is saved)
+
+---
+
 ## ✅ Done!
 
 You now have a working local Kafka-compatible Azure Event Hub emulator.
+
+---
+
+## 📜 Available Scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm run producer` | Send test messages to Kafka topic |
+| `npm run consumer` | Consume messages (commits offsets) |
+| `npm run peek` | View ALL messages in topic (doesn't affect offsets) |
+| `npm run lag` | Check how many messages are unconsumed |
+
