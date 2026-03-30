@@ -162,6 +162,22 @@ npm run producer
 
 ---
 
+## 🔍 Step 6: Peek at Messages
+
+To view all messages in the topic (including unconsumed ones), run:
+
+```bash
+npm run peek
+```
+
+This will:
+- Connect with a **temporary consumer group** (doesn't affect your actual consumer's offsets)
+- Read **all messages from the beginning** of the topic
+- Display each message with partition, offset, key, value, and timestamp
+- Automatically exit after 5 seconds of no new messages
+
+---
+
 ## ✅ Done!
 
 You now have a working local Kafka-compatible Azure Event Hub emulator.
