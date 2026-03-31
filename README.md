@@ -58,15 +58,17 @@ If port 10000 is already in use, stop the conflicting container and rerun the sc
 
 ## ⚙️ Step 3: Configure the Emulator
 
+If config.json doesn't exist under azure-event-hubs-emulator-installer\EventHub-Emulator\Config, create a new one with the json below. If exists, paste the json below. 
+
 ```bash
-ls -l ../EventHub-Emulator/ConfigFiles/Config.json
+ls -l ../EventHub-Emulator/Config/Config.json
 ```
 
 If missing:
 
 ```bash
-mkdir -p ../EventHub-Emulator/ConfigFiles
-nano ../EventHub-Emulator/ConfigFiles/Config.json
+mkdir -p ../EventHub-Emulator/Config
+nano ../EventHub-Emulator/Config/Config.json
 ```
 
 Paste:
@@ -95,9 +97,6 @@ Paste:
   }
 }
 ```
-
-> ⚠️ **Important**: Do NOT use consumer groups defined in the emulator config (like `cg1`) for your application. Pre-configured consumer groups auto-track offsets even without a consumer running, which breaks lag tracking. Use a different consumer group name like `my-app-consumer`.
-
 ---
 
 ## 🧑‍💻 Step 4: Setup Test Application
