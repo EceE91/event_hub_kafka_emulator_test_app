@@ -96,7 +96,7 @@ Paste:
 }
 ```
 
-> ⚠️ **Important**: If you change `KAFKA_CONSUMER_GROUP` in `.env`, you must also add the new consumer group to `ConsumerGroups` array in the emulator config and restart the emulator.
+> ⚠️ **Important**: Do NOT use consumer groups defined in the emulator config (like `cg1`) for your application. Pre-configured consumer groups auto-track offsets even without a consumer running, which breaks lag tracking. Use a different consumer group name like `my-app-consumer`.
 
 ---
 
