@@ -1,7 +1,8 @@
 # 🧪 Azure Event Hub (Kafka) Emulator – Local Setup Guide
 
 This guide walks you through setting up and running the Azure Event Hub Kafka Emulator locally using Docker and WSL, plus testing it with a simple KafkaJS app.
-
+For this reason, in the first step, we will clone the Azure Event Hub Emulator from https://github.com/Azure/azure-event-hubs-emulator-installer.git. Then clone this 
+test application to run both producer and consumer.
 ---
 
 ## 📦 Prerequisites
@@ -99,7 +100,11 @@ Paste:
 ```
 ---
 
-## 🧑‍💻 Step 4: Setup Test Application
+## 🧑‍💻 Step 4: Clone & Setup Test Application
+
+```bash
+git clone https://github.com/EceE91/event_hub_kafka_emulator_test_app.git 
+```
 
 ```bash
 npm install kafkajs
@@ -191,6 +196,9 @@ This shows:
 - **Latest offset** - total messages produced to each partition
 - **Committed offset** - where your consumer group has read up to
 - **Lag** - number of unconsumed messages
+
+Note: to be able to test it, stop the consumer and produce a new message. When you do ``` npm run lag ```, the amount of messages to be consumed will be 1.
+After running the consumer, consumer lag will return 0 message.
 
 ### 💡 Understanding Kafka Message Retention
 
